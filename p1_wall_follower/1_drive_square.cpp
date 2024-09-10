@@ -20,15 +20,13 @@ int main(int argc, const char *argv[])
     float dt = 1.0;
     int num_square = 3;
 
-    for(int i = 0; i < num_square; ++1){
+    for(int i = 0; i < num_square; i++){
         robot.drive(vel, 0.0, 0.0);
         //probably a sleep duration timer to ensure perfect sequential execution
-        robot.drive(0.0, 0.0, 1.57);
-        for(int j = 0; j < 2; ++j){
-            robot.drive(vel, 0.0, 0.0);
-            //sleep
-            robot.drive(0.0, 0.0, 1.57)
-            //sleep
+        robot.drive(0.75, 0.75, 0.0);
+        sleepFor(1);
+        robot.drive(0.0, 0.0, 1.57)
+        sleepFor(1);
         }
     }
     

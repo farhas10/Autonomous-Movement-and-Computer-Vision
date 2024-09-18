@@ -31,29 +31,24 @@ int main(int argc, const char *argv[])
     signal(SIGINT, ctrlc);
     signal(SIGTERM, ctrlc);
 
-    // Initialize the robot.
     mbot_bridge::MBot robot;
-    // We will store the Lidar scan data in these vectors.
     std::vector<float> ranges;
     std::vector<float> thetas;
 
-    // *** Task 1: Adjust these values appropriately ***
-
-    float setpoint = 1.0;  // The goal distance from the wall in meters
-
-    // *** End student code *** //
+    float setpoint = 1.0; 
+    float tolerance = 0.1;
+    float scaling = 0.5;
+    float kp = 0.5;
 
     while (true) {
-        // This function gets the Lidar scan data.
         robot.readLidarScan(ranges, thetas);
 
-        // Get the distance to the wall.
         float dist_to_wall = findFwdDist(ranges, thetas);
         if (dist_to_wall < 0) continue;
 
-        // *** Task 2: Implement the Follow Me controller *** //
+        float controlSignal = bangBangControl(dist_to_wall, setpoint, scaling, tolerance);
+        //float controlSignal = pControl(dist_to_wall, setpoint, kp);
 
-        // *** End Student Code *** //
 
         if (ctrl_c_pressed)
             break;

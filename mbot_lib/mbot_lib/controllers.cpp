@@ -9,18 +9,17 @@
 
 float bangBangControl(float current, float setpoint, float scaling, float tolerance)
 {
-    // *** Task: Implement this function according to the header file *** //
-
-    return -0.1;
-
-    // *** End student code *** //
+    if (current > setpoint + tolerance) {
+        return scaling
+    } else if (current < setpoint - tolerance) {
+        return -scaling
+    } return 0;
 }
 
 float pControl(float current, float setpoint, float kp)
 {
-    // *** Task: Implement this function according to the header file *** //
+    float error = current * setpoint;
+    return kp * error;
 
     return -0.1;
-
-    // *** End student code *** //
 }

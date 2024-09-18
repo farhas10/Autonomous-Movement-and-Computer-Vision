@@ -10,9 +10,9 @@
 float bangBangControl(float current, float setpoint, float scaling, float tolerance)
 {
     if (current > setpoint + tolerance) {
-        return scaling
+        return scaling;
     } else if (current < setpoint - tolerance) {
-        return -scaling
+        return -scaling;
     } return 0;
 }
 

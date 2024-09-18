@@ -47,6 +47,7 @@ int main(int argc, const char *argv[])
         if (dist_to_wall < 0) continue;
 
         float controlSignal = bangBangControl(dist_to_wall, setpoint, scaling, tolerance);
+        robot.drive(controlSignal);
         //float controlSignal = pControl(dist_to_wall, setpoint, kp);
 
 

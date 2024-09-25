@@ -28,12 +28,18 @@ int main(int argc, const char *argv[])
 
     // Initialize the robot.
     mbot_bridge::MBot robot;
+    const float dist = 2.0;
+    const float angle = 144.0;
+    for(int i = 0; i < 5; i++) {
+        std::vector<float> cartesianCoords rayConversionCartisean(dist, angle * (i+1))
+        std::cout << "The Cartesian Coordinates for point " << i << "is (" << cartesianCoords[0] << ", " << cartesianCoords[1] << ")\n";
+        robot.moveForward(dist);
+        std::vector<float> directionVector rayConversionVector(angle * (i+1));
+        std::cout << "The Direction Vector for point " << i << "is (" << directionVector[0] << ", " << directionVector[1] << ")\n";
+        robot.turn(angle);
+    }
 
-    // *** Task: Drive in a five pointed star *** //
-
-    // *** End student code *** //
-
-    // Stop the robot.
+    // Stop the robot
     robot.stop();
     return 0;
 }

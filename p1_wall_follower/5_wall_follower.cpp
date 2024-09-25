@@ -37,7 +37,7 @@ int main(int argc, const char *argv[])
     while (true) {
 
         // *** Task: Implement wall following *** //
-
+        
         // *** End student code *** //
 
         if (ctrl_c_pressed) break;

@@ -57,8 +57,17 @@ int main(int argc, const char *argv[])
         // Hint: When you compute the velocity command, you might find the functions
         // rayConversionVector helpful!
 
-        // *** End Student Code ***
+        float error = setpoint - dist_to_wall; 
+        std::vector<float> directionVector = rayConversionVector(angle_to_wall);
 
+        float k_linear = 0.5;
+        float k_angular = 2.0;
+
+        float linear_velocity = k_linear * error;
+        float angular_velocity = k_angular * (error/setpoint);
+
+        robot.setVelocity(linear_velocity, angular_velocity);
+        
         if (ctrl_c_pressed) break;
     }
 

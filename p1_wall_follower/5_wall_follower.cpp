@@ -36,9 +36,7 @@ int main(int argc, const char *argv[])
 
     while (true) {
 
-        // *** Task: Implement wall following *** //
-        
-        // *** End student code *** //
+        std::vector<float> WallFollower computeWallFollower(ranges, thetas);
 
         if (ctrl_c_pressed) break;
     }

@@ -9,9 +9,20 @@
 
 std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
-    // *** Task: Implement this function according to the header file *** //
+    float setpoint = 0.5;
+    float k_linear = 1.0;
+    float k_angular = 2.0;
+
+    int minIndex = findMinNonzeroDist(ranges);
+    float dist_to_wall = ranges[minIndex];
+    float angle_to_wall = thetas[minIndex];
+
+    float error = setpoint - dist_to_wall;
+
+    float linear_velocity = k_linear * error;
+    float angular_velocity = k_angular * (error/setpoint);
     
-    return std::vector<float>();
+    return std::vector<float>{linear_velocity, 0.0, angular_velocity};
 
     // *** End student code *** //
 }

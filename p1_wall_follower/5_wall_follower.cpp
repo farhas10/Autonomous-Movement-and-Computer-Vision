@@ -33,7 +33,7 @@ int main(int argc, const char *argv[])
     // Create empty vectors to store the scan data.
     std::vector<float> ranges;
     std::vector<float> thetas;
-
+/**
     while (true) {
 
         std::vector<float> WallFollower computeWallFollower(ranges, thetas);
@@ -49,6 +49,8 @@ int main(int argc, const char *argv[])
     }
 
     // Stop the robot.
+
+    */
     robot.stop();
     return 0;
 }

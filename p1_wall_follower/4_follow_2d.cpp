@@ -42,7 +42,7 @@ int main(int argc, const char *argv[])
     float setpoint = 1;  // The goal distance from the wall in meters
 
     // *** End student code *** //
-
+    std::vector<float> normal = {1,1,1};
     while (true) {
         // This function gets the Lidar scan data.
         robot.readLidarScan(ranges, thetas);
@@ -65,8 +65,8 @@ int main(int argc, const char *argv[])
 
         float linear_velocity = k_linear * error;
         float angular_velocity = k_angular * (error/setpoint);
-
-        robot.setVelocity(linear_velocity, angular_velocity);
+        
+        robot.drive(linear_velocity, 1 ,angular_velocity);
         
         if (ctrl_c_pressed) break;
     }

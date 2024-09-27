@@ -12,7 +12,8 @@ std::vector<float> rayConversionCartisean(float dist, float angle)
     float x = dist * cos(angle);
     float y = dist * sin(angle);
 
-    return std::vector<float> {x, y};
+    std::vector<float> result {x, y};
+    return result;
 }
 
 std::vector<float> rayConversionVector(float angle) 
@@ -20,7 +21,7 @@ std::vector<float> rayConversionVector(float angle)
     float vx = cos(angle);
     float vy = sin(angle);
 
-    return std::vector<float> {vx, vy};
+    return std::vector<float> {vx, vy, 0};
 }
 
 int findMinDist(const std::vector<float>& ranges)
@@ -52,11 +53,11 @@ int findMinNonzeroDist(const std::vector<float>& ranges)
 std::vector<float> vectorAdd(const std::vector<float>& v1, const std::vector<float>& v2) 
 {
     // *** Task: Implement this function according to the header file *** //
-    float vx; float vy; float vr;
-    std::vector<float> added {vx, vy, vr};
-    vx = v1[0] + v2[0];
-    vy = v1[1] + v2[1];
-    vr = v1[2] + v2[2];
+    int x = v1.size();
+    std::vector<float> added(x);
+    for (int i = 0; i < v1.size(); i++){
+        added[i] = v1[i] + v2[i];
+    }
     return added;
 
     // *** End student code *** //
@@ -65,11 +66,8 @@ std::vector<float> vectorAdd(const std::vector<float>& v1, const std::vector<flo
 std::vector<float> crossProduct(const std::vector<float>& v1, const std::vector<float>& v2) 
 {
     // *** Task: Implement this function according to the header file *** //
-    float vx; float vy; float vr;
-    std::vector<float> crossproduct {vx, vy, vr};
-    vx = (v1[1]*v1[2])-(v1[2]*v2[1]);
-    vy = -1*(v1[0]*v2[2])-(v1[2]*v2[0]);
-    vr = (v1[0]*v2[1])-(v1[1]*v2[0]);
+
+    std::vector<float> crossproduct = {(v1[1]*v2[2])-(v1[2]*v2[1]), (v1[2]*v2[0])-(v1[0]*v2[2]), (v1[0]*v2[1])-(v1[1]*v2[0])};
     return crossproduct;
 
     // *** End student code *** //

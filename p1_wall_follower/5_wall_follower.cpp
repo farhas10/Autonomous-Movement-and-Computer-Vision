@@ -38,6 +38,13 @@ int main(int argc, const char *argv[])
 
         std::vector<float> WallFollower computeWallFollower(ranges, thetas);
 
+        float vx = WallFollower[0];
+        float vy = WallFollower[1];
+        float wtheta = WallFollower[2];
+
+        robot.setVelocity(vx, wtheta);
+
+
         if (ctrl_c_pressed) break;
     }
 

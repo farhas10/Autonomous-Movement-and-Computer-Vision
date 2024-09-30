@@ -39,10 +39,9 @@ int main(int argc, const char *argv[])
 
     // *** Task 1: Adjust these values appropriately ***
 
-    float setpoint = 1;  // The goal distance from the wall in meters
+    float setpoint = 0.5;  // The goal distance from the wall in meters
 
     // *** End student code *** //
-    std::vector<float> normal = {1,1,1};
     while (true) {
         // This function gets the Lidar scan data.
         robot.readLidarScan(ranges, thetas);
@@ -56,17 +55,17 @@ int main(int argc, const char *argv[])
         // Hint: Look at your code from follow_1D
         // Hint: When you compute the velocity command, you might find the functions
         // rayConversionVector helpful!
-
+        
         float error = setpoint - dist_to_wall; 
         std::vector<float> directionVector = rayConversionVector(angle_to_wall);
 
-        float k_linear = 0.5;
+        float k_linear = 1.0;
         float k_angular = 2.0;
 
         float linear_velocity = k_linear * error;
         float angular_velocity = k_angular * (error/setpoint);
         
-        robot.drive(linear_velocity, 1 ,angular_velocity);
+        robot.drive(pControl(directionVector[0], linear_velocity, error),pControl(directionVector[1], linear_velocity, error), 0);
         
         if (ctrl_c_pressed) break;
     }
@@ -75,3 +74,5 @@ int main(int argc, const char *argv[])
     robot.stop();
     return 0;
 }
+
+

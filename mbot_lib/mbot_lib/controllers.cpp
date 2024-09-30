@@ -19,6 +19,6 @@ float bangBangControl(float current, float setpoint, float scaling, float tolera
 
 float pControl(float current, float setpoint, float kp)
 {
-    float error = current - setpoint;
+    float error = setpoint - current;
     return kp * error;
 }

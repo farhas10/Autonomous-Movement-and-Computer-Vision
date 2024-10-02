@@ -1,8 +1,8 @@
 # Project 1 Wall Follower Checkpoint Videos
-- [Drive Square Demo](paste-link-to-a-video-here)
-- [Follow Me 1D Demo](paste-link-to-a-video-here)
-- [Drive Star Demo](paste-link-to-a-video-here)
-- [Follow Me 2D Demo](paste-link-to-a-video-here)
+- [Drive Square Demo](https://youtu.be/jzHTIuhMPVM)
+- [Follow Me 1D Demo](https://youtu.be/dtMLfdL0aLs)
+- [Drive Star Demo](https://youtube.com/shorts/jdvu64WgG3I?feature=share)
+- [Follow Me 2D Demo](https://youtube.com/shorts/y4rpV7M8fU0?feature=share)
 - [Wall Follower Demo](paste-link-to-a-video-here)
 
 # Project 2 Wall Follower Checkpoint Videos

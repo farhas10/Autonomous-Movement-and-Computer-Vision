@@ -38,6 +38,14 @@ int main(int argc, const char *argv[])
          robot.drive(vals[0], vals[1], vals[2]);
         
         if (ctrl_c_pressed) break;
+<<<<<<< HEAD
+=======
+    }
+
+    // Stop the robot.
+
+    
+>>>>>>> c54ea36 (wall follower code)
     }
     // Stop the robot.
     robot.stop();

@@ -33,7 +33,8 @@ int main(int argc, const char *argv[])
 
     // Initialize the robot.
     mbot_bridge::MBot robot;
-    // We will store the Lidar scan data in these vectors.
+
+    // We will store the LiDar scan data in these vectors.
     std::vector<float> ranges;
     std::vector<float> thetas;
 
@@ -59,14 +60,18 @@ int main(int argc, const char *argv[])
         float error = setpoint - dist_to_wall; 
         std::vector<float> directionVector = rayConversionVector(angle_to_wall);
 
+        //Angular and linear constants.
         float k_linear = 1.0;
         float k_angular = 2.0;
 
+        //Corresponding velocity constants.
         float linear_velocity = k_linear * error;
         float angular_velocity = k_angular * (error/setpoint);
         
+        //Drive in the direction of the vector.
         robot.drive(pControl(directionVector[0], linear_velocity, error),pControl(directionVector[1], linear_velocity, error), 0);
         
+        //Command stopping the robot.
         if (ctrl_c_pressed) break;
     }
 

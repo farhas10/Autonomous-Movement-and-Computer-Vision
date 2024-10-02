@@ -30,27 +30,49 @@ int main(int argc, const char *argv[])
 
     // Initialize the robot.
     mbot_bridge::MBot robot;
-    // Create empty vectors to store the scan data.
+
+    // We will store the LiDar scan data in these vectors.
     std::vector<float> ranges;
     std::vector<float> thetas;
-/**
+
+    // *** Task 1: Adjust these values appropriately ***
+
+    float setpoint = 0.5;  // The goal distance from the wall in meters
+
+    // *** End student code *** //
     while (true) {
+        // This function gets the Lidar scan data.
+        robot.readLidarScan(ranges, thetas);
 
-        std::vector<float> WallFollower computeWallFollower(ranges, thetas);
+        // Get the distance to the wall.
+        float min_idx = findMinNonzeroDist(ranges);
+        float dist_to_wall = ranges[min_idx];
+        float angle_to_wall = thetas[min_idx];
 
-        float vx = WallFollower[0];
-        float vy = WallFollower[1];
-        float wtheta = WallFollower[2];
+        // *** Task 2: Implement the 2D Follow Me controller ***
+        // Hint: Look at your code from follow_1D
+        // Hint: When you compute the velocity command, you might find the functions
+        // rayConversionVector helpful!
+        
+        float error = setpoint - dist_to_wall; 
+        std::vector<float> directionVector = rayConversionVector(angle_to_wall);
 
-        robot.setVelocity(vx, wtheta);
+        //Angular and linear constants.
+        float k_linear = 1.0;
+        float k_angular = 2.0;
 
-
+        //Corresponding velocity constants.
+        float linear_velocity = k_linear * error;
+        float angular_velocity = k_angular * (error/setpoint);
+        
+        std::vector<float> x = pControl(directionVector[0], linear_velocity, error);
+        std::vector<float> y = pControl(directionVector[1], linear_velocity, error);
+        std::vector<float> z = crossProduct(x,y);
+        //Drive in the direction of the vector.
+        robot.drive(x,y,z[2]);
+        
+        //Command stopping the robot.
         if (ctrl_c_pressed) break;
-    }
-
-    // Stop the robot.
-
-    */
     robot.stop();
     return 0;
 }

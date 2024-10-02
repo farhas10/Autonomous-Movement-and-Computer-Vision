@@ -9,20 +9,39 @@
 
 std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
-    float setpoint = 0.5;
-    float k_linear = 1.0;
-    float k_angular = 2.0;
+    //All necessary constants
+    float setpoint = 0.4;
+    float velocity = 0.5;
+    float kp = 0.5;
 
+    //Finding angles and distances to wall.
     int minIndex = findMinNonzeroDist(ranges);
     float dist_to_wall = ranges[minIndex];
     float angle_to_wall = thetas[minIndex];
 
-    float error = setpoint - dist_to_wall;
+    //Result vector created.
+    std::vector<float> result = {0,0,0};
 
-    float linear_velocity = k_linear * error;
-    float angular_velocity = k_angular * (error/setpoint);
-    
-    return std::vector<float>{linear_velocity, 0.0, angular_velocity};
+    //Finding diretion vectors.
+    result = rayConversionVector(angle_to_wall);
+
+    //Arbitrary z-axis vector/
+    std::vector<float> zaxis = {0,0,1};
+
+    //Cross product computation.
+    std::vector<float> crossPVelocity = crossProduct(result, zaxis);
+
+    float vy = velocity*crossPVelocity[0];
+    float vx = velocity*crossPVelocity[1];
+
+    float error = pControl(dist_to_wall, setpoint, kp*-1);
+
+    //Adjustment based on distances using PControl.
+    vx += error*result[0];
+    vy += error*result[1];
+
+    std::vector<float> drive = {vx, vy, 0};
+    return drive; 
 
     // *** End student code *** //
 }

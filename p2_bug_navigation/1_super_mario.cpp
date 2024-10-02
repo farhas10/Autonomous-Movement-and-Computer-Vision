@@ -91,11 +91,30 @@ int playGame(std::vector<char> &events, bool display) {
 
     while (idx < events.size()) {
         char currentEvent = events[idx];
-
         // *** Task: Implement the Super Mario state machine *** //
+        
+        if (currentEvent == '+') {
+            if(marioState == 0) {
+                marioState = 1;
+            } else if (marioState == 1) {
+                marioState = 2;
+            } 
+        } else if (currentEvent == '-') {
+            if(marioState == 0) {
+                marioState = -1;
+            } else if (marioState == 1) {
+                marioState = 0;
+            } else if (marioState == 2) {
+                marioState = 1;
+            }
+        }
 
+        if (marioState == 1) {
+            points += 1;
+        } else if (marioState == 2){
+            points += 3;
+        }
         // *** End student code *** //
-
         idx++;
         if (display) {
             printState(events, marioState, idx);

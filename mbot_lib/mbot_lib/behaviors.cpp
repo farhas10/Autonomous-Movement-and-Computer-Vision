@@ -5,7 +5,7 @@
  */
 
 #include <mbot_lib/behaviors.h>
-
+using namespace std;
 
 std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
@@ -49,8 +49,17 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
 std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, const std::vector<float>& pose)
 {   
     // *** Task: Implement this function according to the header file *** //
+    
+    //Converting to usable coordinates rotated by theta.
+    vector<float> origin = transformVector2D(pose);
+    vector<float> target = transformVector2D(goal);
+    
+    //Computing the resultant vector.
+    vector<float> result = origin + target;
+    result[0] *= bangBangControl(pose[0], goal[0], 0.75, 0.01);
+    result[1] *= bangBangControl(pose[1], goal[1], 0.75, 0.01);
 
-    return std::vector<float>();
+    return result;
 
     // *** End student code *** //
 }
@@ -59,7 +68,7 @@ bool isGoalAngleObstructed(const std::vector<float>& goal, const std::vector<flo
                            const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
     // *** Task: Implement this function according to the header file *** //
-
+    robot.readLidarScan();
     return false;
 
     // *** End student code *** //

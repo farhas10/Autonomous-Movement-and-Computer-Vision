@@ -6,7 +6,7 @@
 #include <mbot_lib/behaviors.h>
 #include <mbot_lib/controllers.h>
 #include <mbot_lib/utils.h>
-
+using namespace std;
 
 bool ctrl_c_pressed;
 void ctrlc(int)
@@ -22,13 +22,22 @@ int main(){
     robot.resetOdometry();
 
     // *** Task: Get the goal pose (x, y, theta) from the user *** //
+    float x, float y, float theta;
+    cout << "Enter your X coordinate: " << "\n";
+    cin >> x;
+    cout << "Enter your Y coordinate: " << "\n";
+    cin >> y;
+    cout << "Enter your desired angle (degrees): " << "\n";
+    cin >> theta;
 
+    vector<float> goal = {x, y, theta};
     // *** End student code *** //
     
     while (true) {
-        
         // *** Task: Implement hit the spot *** //
-
+        if (!isGoalAngleObstructed){
+            computeDriveToPoseCommand(goal, robot.readOdometry());
+        }
         // *** End student code *** //
         
         if (ctrl_c_pressed) break;

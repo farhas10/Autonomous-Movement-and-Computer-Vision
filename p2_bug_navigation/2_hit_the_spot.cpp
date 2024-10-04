@@ -22,7 +22,7 @@ int main(){
     robot.resetOdometry();
 
     // *** Task: Get the goal pose (x, y, theta) from the user *** //
-    float x, float y, float theta;
+    float x; float y; float theta;
     cout << "Enter your X coordinate: " << "\n";
     cin >> x;
     cout << "Enter your Y coordinate: " << "\n";
@@ -35,9 +35,8 @@ int main(){
     
     while (true) {
         // *** Task: Implement hit the spot *** //
-        if (!isGoalAngleObstructed){
-            computeDriveToPoseCommand(goal, robot.readOdometry());
-        }
+        vector<float> coords = computeDriveToPoseCommand(goal, robot.readOdometry());
+            robot.drive(coords[0], coords[1], 0);
         // *** End student code *** //
         
         if (ctrl_c_pressed) break;

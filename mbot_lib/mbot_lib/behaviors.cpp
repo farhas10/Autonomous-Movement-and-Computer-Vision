@@ -51,13 +51,24 @@ std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, con
     // *** Task: Implement this function according to the header file *** //
     
     //Converting to usable coordinates rotated by theta.
-    vector<float> origin = transformVector2D(pose);
-    vector<float> target = transformVector2D(goal);
+    vector<float> xyPose = {pose[0], pose[1]};
+    vector<float> xyGoal = {goal[0], goal[1]};
+
+    transformVector2D(xyPose, pose[2]);
+    transformVector2D(xyGoal, goal[2]);
+    
+    xyGoal[0] *= -1;
+    xyGoal[1] *= -1;
+    xyGoal[2] *= -1;
+
     
     //Computing the resultant vector.
-    vector<float> result = origin + target;
-    result[0] *= bangBangControl(pose[0], goal[0], 0.75, 0.01);
-    result[1] *= bangBangControl(pose[1], goal[1], 0.75, 0.01);
+    vector<float> result = vectorAdd(xyPose, xyGoal);
+
+    float magnitude = pow((result[0] * result[0]) + (result[1]*result[1]),1/2);
+
+    result[0] *= result[0]/magnitude;
+    result[1] *= result[1]/magnitude;
 
     return result;
 
@@ -68,8 +79,6 @@ bool isGoalAngleObstructed(const std::vector<float>& goal, const std::vector<flo
                            const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
     // *** Task: Implement this function according to the header file *** //
-    robot.readLidarScan();
-    return false;
 
     // *** End student code *** //
 }

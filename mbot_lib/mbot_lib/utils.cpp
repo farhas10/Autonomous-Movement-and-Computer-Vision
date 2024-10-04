@@ -75,8 +75,8 @@ std::vector<float> crossProduct(const std::vector<float>& v1, const std::vector<
 
 void transformVector2D(std::vector<float>& xy, float theta) 
 {
-    float x = xy[0] * cos(theta) - xy[1] * sin(theta);
-    float y = xy[0] * sin(theta) + xy[1] * cos(theta);
+    float x = xy[0] * cos(theta) + xy[1] * sin(theta);
+    float y = -1*xy[0] * sin(theta) + xy[1] * cos(theta);
     
     xy[0] = x;
     xy[1] = y;

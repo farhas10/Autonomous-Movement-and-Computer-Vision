@@ -36,7 +36,7 @@ int main(){
     while (true) {
         // *** Task: Implement hit the spot *** //
         vector<float> coords = computeDriveToPoseCommand(goal, robot.readOdometry());
-        robot.drive(coords[0], coords[1], 0);
+        robot.drive(coords[0], coords[1], coords[2]);
         // *** End student code *** //
         
         if (ctrl_c_pressed) break;

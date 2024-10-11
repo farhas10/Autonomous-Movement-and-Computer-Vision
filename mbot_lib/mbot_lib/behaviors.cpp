@@ -62,6 +62,8 @@ std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, con
 
     float magnitude = pow((result[0] * result[0]) + (result[1]*result[1]),1/2);
 
+    magnitude *=1.2;
+
     result[0] *= result[0]/magnitude;
     result[1] *= result[1]/magnitude;
 

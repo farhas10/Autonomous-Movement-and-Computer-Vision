@@ -50,25 +50,22 @@ std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, con
 {   
     // *** Task: Implement this function according to the header file *** //
     
+    vector<float> result(3);
+
+    result[2] = normalizeAngle(goal[2] - pose[2]);
     //Converting to usable coordinates rotated by theta.
-    vector<float> xyPose = {pose[0], pose[1]};
-    vector<float> xyGoal = {goal[0], goal[1]};
 
-    transformVector2D(xyPose, pose[2]);
-    transformVector2D(xyGoal, goal[2]);
-    
-    xyGoal[0] *= -1;
-    xyGoal[1] *= -1;
-    xyGoal[2] *= -1;
-
-    
+    result[0] = goal[0] - pose[0];
+    result[1] = goal[1] - pose[1];
     //Computing the resultant vector.
-    vector<float> result = vectorAdd(xyPose, xyGoal);
+   
 
     float magnitude = pow((result[0] * result[0]) + (result[1]*result[1]),1/2);
 
     result[0] *= result[0]/magnitude;
     result[1] *= result[1]/magnitude;
+
+    transformVector2D(result, pose[2]);
 
     return result;
 

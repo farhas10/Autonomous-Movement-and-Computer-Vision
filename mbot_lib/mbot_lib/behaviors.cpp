@@ -70,6 +70,11 @@ std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, con
     result[0] *= result[0]/magnitude;
     result[1] *= result[1]/magnitude;
 
+    if (result[0] < 0.1 || result[1] < 0.1){
+        result[0] = 0;
+        result[1] = 0;
+    }
+
     return result;
 
     // *** End student code *** //

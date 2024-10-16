@@ -69,8 +69,10 @@ int main() {
     std::cout << "Final MBot odometry x-pose = " << finalPose[0] 
               << ", y = " << finalPose[1] 
               << ", theta = " << finalPose[2] 
-              << std::end;
+              << std::endl;
 
+    bool withinPoseTolerance = (std::abs(finalPose[0] - goal[0]) < 0.01) && (std::abs(finalPose[1] - goal[1]) < 0.01);
+    bool withinOrientationTolerance = (std::abs(normalizeAngle(finalPose[2] - goal[2])) < 0.15);
     //Checking if final odometry position passes tolerance criteria
     if ((withinPoseTolerance) && (withinOrientationTolerance)) {
         std::cout << "Your final pose is within 1 centimeter and 0.15 radians of your goal!" << std::endl;
@@ -80,8 +82,8 @@ int main() {
     } else {
         std::cout << "Your final pose is not within either the pose or orientation tolerance!" << std::endl;
         std::cout << "Here is your error difference, x = " << finalPose[0] - goal[0]
-                  << "y = " << finalPose[1] - goal[1]
-                  << "theta = " << finalPose[2] - goal[2] << std::endl;
+                  << ", y = " << finalPose[1] - goal[1]
+                  << ", theta = " << finalPose[2] - goal[2] << std::endl;
     }
     return 0;
 }

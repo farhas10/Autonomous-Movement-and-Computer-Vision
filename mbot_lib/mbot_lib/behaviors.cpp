@@ -10,8 +10,8 @@ using namespace std;
 std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
     //All necessary constants
-    float setpoint = 0.4;
-    float velocity = 0.5;
+    float setpoint = 0.1;
+    float velocity = 0.4;
     float kp = 0.5;
 
     //Finding angles and distances to wall.
@@ -43,7 +43,7 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
     std::vector<float> drive = {vx, vy, 0};
     return drive; 
 
-    // *** End student code *** //
+    // // *** End student code *** //
 }
 
 std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, const std::vector<float>& pose)
@@ -79,9 +79,9 @@ bool isGoalAngleObstructed(const std::vector<float>& goal, const std::vector<flo
 {
 
     float dx = goal[0] - pose[0];
-    float dy = goal[1] - pose[2];
-    float target_angle = atan(dy/dx);
-    float slice_size = M_PI/18;
+    float dy = goal[1] - pose[1];
+    float target_angle = atan2(dy,dx);
+    float slice_size = M_PI/2;
     
     int minIndex = findMinNonzeroDistInSlice(ranges, thetas, target_angle, slice_size);
     if (minIndex != -1) {

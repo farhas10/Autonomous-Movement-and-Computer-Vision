@@ -77,7 +77,20 @@ std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, con
 bool isGoalAngleObstructed(const std::vector<float>& goal, const std::vector<float>& pose,
                            const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
-    // *** Task: Implement this function according to the header file *** //
 
-    // *** End student code *** //
+    float dx = goal[0] - pose[0];
+    float dy = goal[1] - pose[2];
+    float target_angle = atan(dy/dx);
+    float slice_size = M_PI/18;
+    
+    int minIndex = findMinNonzeroDistInSlice(ranges, thetas, target_angle, slice_size);
+    if (minIndex != -1) {
+        float dist_to_wall = ranges[minIndex];
+        if (dist_to_wall < 1.0) {
+            return true;
+        }
+    }
+    
+    return false;
+    
 }

@@ -34,6 +34,9 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
     float vy = velocity*crossPVelocity[0];
     float vx = velocity*crossPVelocity[1];
 
+    // vx should be index 0, vy should be index 1
+    //
+
     float error = pControl(dist_to_wall, setpoint, kp*-1);
 
     //Adjustment based on distances using PControl.

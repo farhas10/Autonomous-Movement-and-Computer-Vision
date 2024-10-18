@@ -40,9 +40,16 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
     vx += error*result[0];
     vy += error*result[1];
 
+    float velocity_magnitude = sqrt(vx * vx + vy * vy);
+    if (velocity_magnitude > 0) {
+        // Scale to maintain a consistent magnitude
+        float scale = velocity / velocity_magnitude;
+        vx *= scale;
+        vy *= scale;
+    }
+
     std::vector<float> drive = {vx, vy, 0};
     return drive; 
-
     // // *** End student code *** //
 }
 

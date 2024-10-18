@@ -59,9 +59,9 @@ int main() {
             std::cout << "Driving to goal" << std::endl;
         }
 
-        std::cout << "current x-pose " << currentPose[0] << std::endl;
-        std::cout << "current y-pose " << currentPose[1] << std::endl;
-        std::cout << "current theta-pose " << currentPose[2] << std::endl;
+        std::cout << "Current x-pose = " << currentPose[0] << std::endl;
+        std::cout << "Current y-pose = " << currentPose[1] << std::endl;
+        std::cout << "Current theta-pose = " << currentPose[2] << std::endl;
 
         if (ctrl_c_pressed) {
             break;

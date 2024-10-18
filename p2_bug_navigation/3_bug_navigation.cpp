@@ -52,10 +52,17 @@ int main() {
         if (isGoalAngleObstructed(goal, robot.readOdometry(), ranges, thetas)) {
             std::vector<float> avoid = computeWallFollowerCommand(ranges, thetas);
             robot.drive(avoid[0], avoid[1], avoid[2]);
+            std::cout << "Wall Following" << std::endl;
         } else {
             std::vector<float> goalCoords = computeDriveToPoseCommand(goal, robot.readOdometry());
             robot.drive(goalCoords[0], goalCoords[1], goalCoords[2]);
+            std::cout << "Driving to Pose" << std::endl;
+
         }
+
+        std::cout << "Current x-pose = " << currentPose[0] << std::endl;
+        std::cout << "Current y-pose = " << currentPose[1] << std::endl;
+        std::cout << "Current theta-pose = " << currentPose[2] << std::endl;
 
         if (ctrl_c_pressed) {
             break;

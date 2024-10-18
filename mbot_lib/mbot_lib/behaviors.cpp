@@ -31,11 +31,8 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
     //Cross product computation.
     std::vector<float> crossPVelocity = crossProduct(result, zaxis);
 
-    float vy = velocity*crossPVelocity[0];
-    float vx = velocity*crossPVelocity[1];
-
-    // vx should be index 0, vy should be index 1
-    //
+    float vx = velocity*crossPVelocity[0];
+    float vy = velocity*crossPVelocity[1];
 
     float error = pControl(dist_to_wall, setpoint, kp*-1);
 

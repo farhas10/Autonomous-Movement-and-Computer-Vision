@@ -30,7 +30,7 @@ int main(){
     cout << "Enter your desired angle (degrees): " << "\n";
     cin >> theta;
 
-    vector<float> goal = {x, y, theta};
+    std::vector<float> goal = {x, y, theta};
     // *** End student code *** //
     
     while (true) {
@@ -45,9 +45,11 @@ int main(){
     // Stop the robot before exiting.
     robot.stop();
 
-    // *** Task: Print out the robot's final odometry pose *** //
-    
-    // *** End student code *** //
+    std::vector<float> finalPose = robot.readOdometry();
+    std::cout << "Final MBot odometry x-pose = " << finalPose[0] 
+              << ", y = " << finalPose[1] 
+              << ", theta = " << finalPose[2] 
+              << std::endl;
 
     return 0;
 }

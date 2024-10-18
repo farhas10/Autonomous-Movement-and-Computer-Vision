@@ -11,7 +11,7 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
 {
     
     //All necessary constants
-    float setpoint = 0.1;
+    float setpoint = 0.05;
     float velocity = 0.4;
     float kp = 0.5;
 
@@ -41,9 +41,16 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
     vx += error*result[0];
     vy += error*result[1];
 
+    float velocity_magnitude = sqrt(vx * vx + vy * vy);
+    if (velocity_magnitude > 0) {
+        // Scale to maintain a consistent magnitude
+        float scale = velocity / velocity_magnitude;
+        vx *= scale;
+        vy *= scale;
+    }
+
     std::vector<float> drive = {vx, vy, 0};
     return drive; 
-
     // // *** End student code *** //
 }
 
@@ -61,8 +68,7 @@ std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, con
     // Calculate the distance to the goal
     float distance_to_goal = sqrt(result[0] * result[0] + result[1] * result[1]);
 
-    // Set a constant speed
-    float constant_speed = 0.5; // Adjust this value as needed
+    float constant_speed = 0.6; 
 
     // If the robot is close enough to the goal, slow down
     if (distance_to_goal < 0.2) { // 20 cm threshold

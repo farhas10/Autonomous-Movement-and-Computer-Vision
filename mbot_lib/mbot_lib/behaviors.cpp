@@ -9,6 +9,7 @@ using namespace std;
 
 std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, const std::vector<float>& thetas)
 {
+    
     //All necessary constants
     float setpoint = 0.1;
     float velocity = 0.4;
@@ -31,8 +32,8 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
     //Cross product computation.
     std::vector<float> crossPVelocity = crossProduct(result, zaxis);
 
-    float vy = velocity*crossPVelocity[0];
-    float vx = velocity*crossPVelocity[1];
+    float vx = velocity*crossPVelocity[0];
+    float vy = velocity*crossPVelocity[1];
 
     float error = pControl(dist_to_wall, setpoint, kp*-1);
 
@@ -48,30 +49,39 @@ std::vector<float> computeWallFollowerCommand(const std::vector<float>& ranges, 
 
 std::vector<float> computeDriveToPoseCommand(const std::vector<float>& goal, const std::vector<float>& pose)
 {   
-    // *** Task: Implement this function according to the header file *** //
-    
-    vector<float> result(3);
+    std::vector<float> result(3);
 
+    // Calculate the angle to the goal
     result[2] = normalizeAngle(goal[2] - pose[2]);
-    //Converting to usable coordinates rotated by theta.
 
+    // Calculate the difference in position
     result[0] = goal[0] - pose[0];
     result[1] = goal[1] - pose[1];
-    //Computing the resultant vector.
-   
 
-    float magnitude = pow((result[0] * result[0]) + (result[1]*result[1]),1/2);
+    // Calculate the distance to the goal
+    float distance_to_goal = sqrt(result[0] * result[0] + result[1] * result[1]);
 
-    magnitude *=1.2;
+    // Set a constant speed
+    float constant_speed = 0.5; // Adjust this value as needed
 
-    result[0] *= result[0]/magnitude;
-    result[1] *= result[1]/magnitude;
+    // If the robot is close enough to the goal, slow down
+    if (distance_to_goal < 0.2) { // 20 cm threshold
+        constant_speed *= (distance_to_goal / 0.2); // Scale speed down as it approaches
+    }
 
+    // Normalize the result vector to use it as a direction
+    if (distance_to_goal > 0) {
+        result[0] = (result[0] / distance_to_goal) * constant_speed;
+        result[1] = (result[1] / distance_to_goal) * constant_speed;
+    } else {
+        result[0] = 0;
+        result[1] = 0;
+    }
+
+    // Transform the velocity vector based on the current orientation
     transformVector2D(result, pose[2]);
 
     return result;
-
-    // *** End student code *** //
 }
 
 bool isGoalAngleObstructed(const std::vector<float>& goal, const std::vector<float>& pose,
@@ -81,7 +91,7 @@ bool isGoalAngleObstructed(const std::vector<float>& goal, const std::vector<flo
     float dx = goal[0] - pose[0];
     float dy = goal[1] - pose[1];
     float target_angle = atan2(dy,dx);
-    float slice_size = M_PI/2;
+    float slice_size = 1.0;
     
     int minIndex = findMinNonzeroDistInSlice(ranges, thetas, target_angle, slice_size);
     if (minIndex != -1) {

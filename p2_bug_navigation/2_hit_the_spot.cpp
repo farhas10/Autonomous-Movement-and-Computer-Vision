@@ -35,7 +35,7 @@ int main(){
     
     while (true) {
         // *** Task: Implement hit the spot *** //
-        vector<float> coords = computeDriveToPoseCommand(goal, robot.readOdometry());
+        std::vector<float> coords = computeDriveToPoseCommand(goal, robot.readOdometry());
         robot.drive(coords[0], coords[1], coords[2]);
         // *** End student code *** //
         

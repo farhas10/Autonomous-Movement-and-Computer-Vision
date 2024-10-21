@@ -23,7 +23,7 @@ int main() {
     mbot_bridge::MBot robot;
     // Reset the robot odometry to zero.
     robot.resetOdometry();
-    // *** Task: Implement bug navigation finite state machine *** //
+    // *** Task: Implement bug navigation finite state machine *** / /
     float x, y, theta;
 
     std::cout << "Enter your goal x-coordinate" << std::endl;

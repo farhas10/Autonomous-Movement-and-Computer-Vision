@@ -88,7 +88,7 @@ int main() {
     } else {
         std::cout << "Your final pose is not within either the pose or orientation tolerance!" << std::endl;
         std::cout << "Here is your error difference, x = " << finalPose[0] - goal[0]
-                  << ", y = " << finalPose[1] - goal[1]
+                  << ", y = " << finalPose[1] - goal[1]             
                   << ", theta = " << finalPose[2] - goal[2] << std::endl;
     }
     return 0;

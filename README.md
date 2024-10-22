@@ -6,7 +6,7 @@
 - [Wall Follower Demo](https://youtu.be/l6bYaZcZFDo)
 
 # Project 2 Wall Follower Checkpoint Videos
-- [Robot Hits the Spot Demo](paste-link-to-a-video-here)
+- [Robot Hits the Spot Demo](https://youtu.be/g2kFvaha5xU)
 - [Bug Navigation Demo](paste-link-to-a-video-here)
 
 # ROB102-Project-1-and-2
